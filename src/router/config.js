@@ -35,7 +35,14 @@ export const routesConfig = [
 				name: 'item',
 				auth: ['guest', 'user'],
 				component: () => import('../pages/about/item'),
-			}
+			},
+			{
+				path: '/about/redux_counter',
+				name: 'item',
+				auth: ['guest', 'user'],
+				component: () => import('../pages/about/redux/Counter'),
+			},
+
 		]
 	},
 	{
