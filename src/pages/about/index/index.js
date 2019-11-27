@@ -32,8 +32,14 @@ function Home() {
 					</Card>
 				</Col>
 				<Col span={ 8 }>
-					<Card title="Card title" bordered={ false }>
-						Card content
+					<Card
+						title="redux ToDoList demo"
+						bordered={ false }
+						onClick={ () => {
+							history.push('/about/redux_todo')
+						} }
+					>
+						click into redux ToDoList demo
 					</Card>
 				</Col>
 			</Row>

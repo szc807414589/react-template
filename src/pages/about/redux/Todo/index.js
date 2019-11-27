@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { addNum, substractNum } from "../../../../redux/Counter/actions"
-import { Button, Card } from "antd"
+import { Button, Card,Input } from "antd"
 const mapStateToProps = (state) => ({
 	Count: state.Count
 })
@@ -9,7 +9,7 @@ const mapStateToProps = (state) => ({
 	mapStateToProps,
 	{ addNum, substractNum }
 )
-class Counter extends React.Component {
+class Todo extends React.Component {
 	add = () => {
 		const { addNum } = this.props
 		addNum && addNum(1)
@@ -21,11 +21,9 @@ class Counter extends React.Component {
 	render() {
 		const { Count: { value } } = this.props
 		return (
-			<Card title="redux版计数器">
+			<Card title="redux版ToDoList">
 				<div>
-					<p>You click {value} times</p>
-					<Button onClick={this.add}>click me +1</Button>
-					<Button onClick={this.substract}>click me -1</Button>
+					<Input size="large" placeholder="请输入待办事项"/>
 				</div>
 			</Card>
 		)
@@ -33,4 +31,4 @@ class Counter extends React.Component {
 }
 
 
-export default Counter
+export default Todo
