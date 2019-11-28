@@ -8,7 +8,7 @@ function Home() {
 
 	return (
 		<div style={ { background: '#ECECEC', padding: '30px' } }>
-			<Row gutter={ 16 }>
+			<Row gutter={ [16,24] }>
 				<Col span={ 8 }>
 					<Card
 						title="item"
@@ -37,6 +37,17 @@ function Home() {
 						bordered={ false }
 						onClick={ () => {
 							history.push('/about/redux_todo')
+						} }
+					>
+						click into redux ToDoList demo
+					</Card>
+				</Col>
+				<Col span={ 8 }>
+					<Card
+						title="redux ShoppingCart demo"
+						bordered={ false }
+						onClick={ () => {
+							history.push('/about/redux_shoppingCart')
 						} }
 					>
 						click into redux ToDoList demo
