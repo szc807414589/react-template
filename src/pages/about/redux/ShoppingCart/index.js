@@ -18,9 +18,10 @@ class ShoppingCart extends React.Component {
 	}
 
 	componentDidMount() {
-		Api.getProducts(res => {
-			this.setState({ list: res })
-		})
+		// Api.getProducts(res => {
+		// 	this.setState({ list: res })
+		// })
+		this.props.getProducts()
 		// Api.buyProducts(data=>{
 		// 	console.log(data)
 		// })

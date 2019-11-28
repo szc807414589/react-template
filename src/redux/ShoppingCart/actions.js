@@ -17,8 +17,13 @@ export const CHECKOUT_SUCCESS = 'CHECKOUT_SUCCESS'
 export const CHECKOUT_FAILURE = 'CHECKOUT_FAILURE'
 export const RECEIVE_PRODUCTS = 'RECEIVE_PRODUCTS'
 
+//获取商品列表
 export const getProducts = () => dispatch => (
 	api.getProducts(products => {
 		dispatch(CreateAction(RECEIVE_PRODUCTS, { products }))
 	})
+)
+//添加购物车
+export const addToCart = id => (dispatch,getState) => (
+	dispatch(CreateAction(ADD_TO_CART,{id}))
 )

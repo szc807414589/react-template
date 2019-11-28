@@ -10,6 +10,8 @@ export const addTodo = (text) => (
 export const deleteTodo = (id) => (
 	CreateAction(DELETE_TODO, { id })
 )
+
+
 export const ToggleTodo = (id) => (
 	CreateAction(TOGGLE_TODO, { id })
 )
