@@ -12,11 +12,11 @@ export default () => {
 	//Store enhancer 是一个组合 store creator 的高阶函数，
 	// 返回一个新的强化过的 store creator。
 	// 这与 middleware 相似，它也允许你通过复合函数改变 store 接口。
-	const enhacer = applyMiddleware(
+	const enhancer = applyMiddleware(
 		thunkMiddleware,
 		logMiddleware,
 	)
-	const store = createStore(reducers, enhacer)
+	const store = createStore(reducers, enhancer)
 	// if (isDev() && module.hot) {
 	// 	module.hot.accept('./reducer.js', () => {
 	// 		const nextReducer = require('./reducer.js').default

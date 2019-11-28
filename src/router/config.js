@@ -1,5 +1,3 @@
-import React from 'react'
-
 export const routesConfig = [
 	{
 		path: '/login',
@@ -47,6 +45,12 @@ export const routesConfig = [
 				name: 'redux_todo',
 				auth: ['guest', 'user'],
 				component: () => import('../pages/about/redux/Todo'),
+			},
+			{
+				path: '/about/redux_shoppingCart',
+				name: 'redux_shoppingCart',
+				auth: ['guest', 'user'],
+				component: () => import('../pages/about/redux/ShoppingCart'),
 			},
 
 		]
