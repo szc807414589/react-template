@@ -1,5 +1,5 @@
 //计数器demo actions
-import { CreateAction } from "../ActionCreaters"
+import { CreateAction } from "../../Action/ActionCreaters"
 
 export const ADD_COUNTER = 'ADD_COUNTER'
 export const SUB_COUNTER = 'SUB_COUNTER'

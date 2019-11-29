@@ -44,13 +44,13 @@ function Home() {
 				</Col>
 				<Col span={ 8 }>
 					<Card
-						title="redux ShoppingCart demo"
+						title="redux ToDoListAsync demo"
 						bordered={ false }
 						onClick={ () => {
-							history.push('/about/redux_shoppingCart')
+							history.push('/about/redux_todo_async')
 						} }
 					>
-						click into redux ToDoList demo
+						click into redux ToDoListAsync demo
 					</Card>
 				</Col>
 			</Row>

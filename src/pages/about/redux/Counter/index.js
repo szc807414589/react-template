@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addNum, substractNum } from "../../../../redux/Counter/actions"
+import { addNum, substractNum } from "../../../../redux/Containers/Counter/actions"
 import { Button, Card } from "antd"
 const mapStateToProps = (state) => ({
 	Count: state.Count

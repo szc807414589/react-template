@@ -1,7 +1,8 @@
 import React from 'react'
 import AppRouter from './router'
 import {Provider as ReduxProvider} from 'react-redux'
-import configStore from './redux/store'
+import configStore from './redux/store/index'
+
 const reduxStore = configStore()
 
 

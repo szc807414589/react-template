@@ -47,10 +47,10 @@ export const routesConfig = [
 				component: () => import('../pages/about/redux/Todo'),
 			},
 			{
-				path: '/about/redux_shoppingCart',
-				name: 'redux_shoppingCart',
+				path: '/about/redux_todo_async',
+				name: 'redux_todo_async',
 				auth: ['guest', 'user'],
-				component: () => import('../pages/about/redux/ShoppingCart'),
+				component: () => import('../pages/about/redux/TodoAsync'),
 			},
 
 		]

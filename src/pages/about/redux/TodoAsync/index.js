@@ -1,18 +1,23 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addTodo, deleteTodo, ToggleTodo, FilterTodo } from "../../../../redux/Containers/Todos/actions"
-import { message, Card, Input  } from "antd"
+import {
+	addTodo_async,
+	deleteTodo_async,
+	ToggleTodo_async,
+	FilterTodo_async
+} from "../../../../redux/Containers/TodosAsync/actions"
+import { message, Card, Input } from "antd"
 import TodoList from './TodoList'
 
 
 const mapStateToProps = (state) => ({
-	Todos: state.Todos,
-	FilterStatus: state.FilterStatus
+	Todos_Async: state.Todos_Async,
+	FilterStatus_Async: state.FilterStatus_Async
 })
 
 @connect(
 	mapStateToProps,
-	{ addTodo, deleteTodo, ToggleTodo, FilterTodo }
+	{ addTodo_async, deleteTodo_async, ToggleTodo_async, FilterTodo_async }
 )
 class Todo extends React.Component {
 	constructor(props) {
@@ -23,25 +28,25 @@ class Todo extends React.Component {
 	}
 
 	add = (text) => {
-		const { addTodo } = this.props
+		const { addTodo_async } = this.props
 		if (!text) {
 			message.warning('请输入')
 			return
 		}
-		addTodo && addTodo(text)
+		addTodo_async && addTodo_async(text)
 		this.setState({ value: '' })
 	}
 	deleteItem = (id) => {
-		const { deleteTodo } = this.props
-		deleteTodo && deleteTodo(id)
+		const { deleteTodo_async } = this.props
+		deleteTodo_async && deleteTodo_async(id)
 	}
 	toggleItem = (id) => {
-		const { ToggleTodo } = this.props
-		ToggleTodo && ToggleTodo(id)
+		const { ToggleTodo_async } = this.props
+		ToggleTodo_async && ToggleTodo_async(id)
 	}
 	filterTodos = (status) => {
-		const { FilterTodo } = this.props
-		FilterTodo && FilterTodo(status)
+		const { FilterTodo_async } = this.props
+		FilterTodo_async && FilterTodo_async(status)
 	}
 	getFilterTodoList = (Todos, Status) => {
 		switch (Status) {
@@ -57,11 +62,14 @@ class Todo extends React.Component {
 	}
 
 	render() {
-		const { Todos, FilterStatus } = this.props
+		const { Todos_Async, FilterStatus_Async } = this.props
 		const { value } = this.state
-		const FilterTodo = this.getFilterTodoList(Todos, FilterStatus)
+		const FilterTodo = this.getFilterTodoList(Todos_Async, FilterStatus_Async)
 		return (
-			<Card title="redux版ToDoList" style={ { width: '600px', margin: '50px auto' } }>
+			<Card
+				title="redux版ToDoList_Async"
+				style={ { width: '600px', margin: '50px auto' } }
+			>
 				<div>
 					<Input.Search
 						size="large"
@@ -75,12 +83,12 @@ class Todo extends React.Component {
 					/>
 				</div>
 				<TodoList
-					Todos={Todos}
-					FilterTodo={FilterTodo}
-					FilterStatus={FilterStatus}
-					filterTodos={this.filterTodos}
-					toggleItem={this.toggleItem}
-					deleteItem={this.deleteItem}
+					Todos={ Todos_Async }
+					FilterTodo={ FilterTodo }
+					FilterStatus={ FilterStatus_Async }
+					filterTodos={ this.filterTodos }
+					toggleItem={ this.toggleItem }
+					deleteItem={ this.deleteItem }
 				/>
 			</Card>
 		)
