@@ -1,0 +1,59 @@
+@import "../../assets/style/theme";
+.page {
+    width: 100%;
+    height: 100%;
+}
+.login_container {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    padding: 2rem 0 0 0;
+    .am-list-body{
+        &::before {
+            content: none!important;
+        }
+        &::after {
+            content: none!important;
+        }
+    }
+    .logo {
+        width: 1.78rem;
+        height: 1.88rem;
+        margin: 0 auto 1.4rem;
+    }
+    .form_container {
+        width: 100%;
+        .form_item {
+            margin: 0 .6rem;
+            border-bottom: 1px solid #ebebeb;
+            .am-list-item .am-input-label.am-input-label-5 {
+                width: .5rem;
+            }
+        }
+        .captain_btn_outside {
+            width: 6.3rem;
+            height: .88rem;
+            border-radius: 2rem;
+            text-align: center;
+            line-height: .88rem;
+            font-size: .36rem;
+            font-weight: 400;
+            padding: .04rem;
+            background: #EBEBEB;
+            color: #EBEBEB;
+            margin: .88rem auto;
+            .captain_btn_inner {
+                width: 6.2rem;
+                height: .78rem;
+                background-color: #fff;
+                border-radius: 2rem;
+            }
+            &.active{
+                background-image: linear-gradient(to right, #FFA852, #FE4322);
+                background-image: -webkit-linear-gradient(to right, #FFA852, #FE4322);
+                background-image: -moz-linear-gradient(to right, #FFA852, #FE4322);
+                color: @text-decorate-01;
+            }
+        }
+    }
+}

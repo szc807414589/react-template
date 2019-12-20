@@ -12,18 +12,26 @@
     transform: translateX(0);
     transition: all 500ms;
 }
+.forward-appear {
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+.forward-appear-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: all 500ms;
+}
 
 .forward-exit {
     opacity: 1;
     transform: translateX(0);
-    display: block;
 }
 
 .forward-exit-active {
     opacity: 0;
     transform: translateX(-100%);
     transition: all 500ms;
-    display: none;
 }
 
 .back-enter {
@@ -40,12 +48,10 @@
 .back-exit {
     opacity: 1;
     transform: translateX(0);
-    display: block;
 }
 
 .back-exit-active {
     opacity: 0;
     transform: translate(100%);
     transition: all 500ms;
-    display: none;
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Input, List, Icon, Message, Typography, Tag } from 'antd'
+import { Card, Input, List, Icon, Message, Typography, Tag } from 'antd-mobile'
 import { observer, inject } from "mobx-react"
 
 @inject('TodoListStore')

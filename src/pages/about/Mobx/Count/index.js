@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button} from 'antd'
+import {Button} from 'antd-mobile'
 import {observer, inject} from "mobx-react"
 
 

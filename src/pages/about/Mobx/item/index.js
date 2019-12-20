@@ -1,7 +1,6 @@
 import React from 'react'
-import { Button, tag } from "antd"
+import { Button, Tag } from "antd-mobile"
 import { observer, inject } from "mobx-react"
-import Tag from "antd/lib/tag"
 
 @inject('NovelStore')
 @observer

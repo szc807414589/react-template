@@ -1,76 +1,100 @@
-import React, {Suspense} from "react"
-import {CSSTransition} from "react-transition-group"
+import React, { Suspense } from "react"
 import {
-	BrowserRouter as Router,
+	// BrowserRouter,
+	Router,
 	Switch,
 	Route,
+	Redirect
 } from "react-router-dom"
 import './style.less'
-import {routesConfig} from './config'
-import BasicLayout from '../layouts/BasicLayout'
+import { routesConfig } from './config'
+import history from '../history'
 
+// const ANIMATION_MAP = {
+// 	PUSH: 'page',
+// 	POP: 'back'
+// }
 const Loading = () => {
 	return (
-		<div>Loading...</div>
+		<>Loading...</>
 	)
 }
-//lazy 引入
-const AsyncComponent = importComponent => {
-	const Component = React.lazy(importComponent)
+
+// Support pass props from layout to child routes
+const RouteWithProps = ({ path, exact, strict, render, location, ...rest }) => (
+	<Route
+		path={ path }
+		exact={ exact }
+		strict={ strict }
+		location={ location }
+		render={ props => render({ ...props, ...rest }) }
+	/>
+)
+
+//递归展开 routesConfig
+const renderRouter = (routes, switchProps = {}) => {
+	return routes ? (
+		<Switch { ...switchProps }>
+			{
+				routes.map((route, i) => {
+					//如果有重定向
+					if (route.redirect) {
+						return (
+							<Redirect
+								key={ route.key || i }
+								from={ route.path }
+								to={ route.redirect }
+								exact={ route.exact }
+								strict={ route.strict }
+							/>
+						)
+					}
+
+					//如果有子路由,就渲染子路由,如果没有,就直接渲染
+					return (
+						<RouteWithProps
+							key={ `${ route.path }_${ i }` }
+							path={ route.path }
+							exact={ route.exact }
+							strict={ route.strict }
+							render={ props => {
+								const childRoutes = renderRouter(
+									route.routes,
+									{ location: props.location }
+								)
+								if (route.component) {
+									return (
+										<route.component>
+											{ childRoutes }
+										</route.component>
+									)
+								} else {
+									return childRoutes
+								}
+							} }
+						/>
+					)
+				})
+			}
+		</Switch>
+	) : null
+
+}
+
+const TransRouter = () => {
+	console.log(renderRouter(routesConfig))
 	return (
-		<Suspense fallback={<Loading />}>
-			<div className={"page"}>
-				<Component />
-			</div>
+		<Suspense fallback={ <Loading /> }>
+			{ renderRouter(routesConfig) }
 		</Suspense>
 	)
 }
-//递归展开 routesConfig
-const configRecursive = (routesConfig) => {
-	return routesConfig.map((route, i) => {
-		if (route.routes && route.routes.length > 0) {
-			return configRecursive(route.routes)
-		}
-		return (
-			<Route
-				key={`${route.path}_${i}`}
-				path={route.path}
-				exact={route.exact}
-			>
-				{({match}) => (
-					<CSSTransition
-						in={match != null}
-						timeout={300}
-						classNames="page"
-						unmountOnExit
-					>
-						<div className="page">
-							{AsyncComponent(route.component)}
-						</div>
-					</CSSTransition>
-				)}
-			</Route>
-		)
-	})
+const AppRouter = () => (
+	<Router history={ history }>
 
-}
-
-const AppRouter = () => {
-	return (
-		<Router>
-			<Switch>
-				<Suspense fallback={<Loading/>}>
-					<BasicLayout className={"container"}>
-						{
-							configRecursive(routesConfig)
-						}
-					</BasicLayout>
-				</Suspense>
-			</Switch>
-		</Router>
-
-	)
-}
+		<TransRouter />
+	</Router>
+)
 
 export default AppRouter
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Col, Row } from 'antd'
+import { Card, Col, Row } from 'antd-mobile'
 import { useHistory } from "react-router-dom"
 
 function Home() {
