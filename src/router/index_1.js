@@ -3,9 +3,10 @@ import { Router, Switch, Route, Redirect, withRouter } from "react-router-dom"
 import HomePageLayout from '../layouts/HomePage'
 import history from "../history"
 import { TransitionGroup, CSSTransition } from "react-transition-group"
+import Home from '../pages/home/index'
+import User from '../pages/user/index'
 import './style.less'
 
-const Home = React.lazy(() => import('../pages/home/index'))
 const Benefit = React.lazy(() => import('../pages/home/benefit'))
 const Login = React.lazy(() => import('../pages/login'))
 const Policy = React.lazy(() => import('../pages/user/policy'))
@@ -16,28 +17,28 @@ const Loading = () => {
 		<div>Loading...</div>
 	)
 }
+//tabBar页面,/home和/home/user不用react.lazy(),会闪烁
 const TabRouter = () => {
 	return (
 		<HomePageLayout>
 			<Switch>
-				{/*<Redirect path={'/'} to={'/home'}/>*/ }
-				<Route path={ '/home' } exact
-				       component={ React.lazy(() => import('../pages/home/index')) } />
-				<Route path={ '/home/user' } exact
-				       component={ React.lazy(() => import('../pages/user/index')) } />
+				<Route path={ '/home' } exact component={ Home } />
+				<Route path={ '/home/user' } exact component={ User } />
 			</Switch>
 		</HomePageLayout>
 	)
 }
-const HomePage = () => {
+// /home页面进入的子页面
+const HomePage = (className) => {
 	return (
 		<Switch>
 			<Route
-				path={ '/homePage/benefit' } exact
+				path={ '/homePage/benefit' }
 				component={ React.lazy(() => import('../pages/home/benefit')) } />
 		</Switch>
 	)
 }
+// /user页面进入的子页面
 const UserPage = () => {
 	return (
 		<Switch>
@@ -45,67 +46,48 @@ const UserPage = () => {
 		</Switch>
 	)
 }
-const AppRouter = () => {
-	return (
-		<Router history={ history }>
-			<Suspense fallback={ <Loading /> }>
-				<Switch>
-					<Route path={ '/login' } component={ React.lazy(() => import('../pages/login')) } />
-					<Route path={ '/homePage' } component={ HomePage } />
-					<Route path={ '/userPage' } component={ UserPage } />
-					<Route path={ '/home' } component={ TabRouter } />
-					<Redirect path={ '/' } to={ '/home' } />
-				</Switch>
-			</Suspense>
-		</Router>
-	)
-}
 
-
+//过滤路由前进和后退的时候添加不同的class
 const ACTION_MAP = {
 	PUSH: 'forward',
 	POP: 'back'
 }
+// 给每个React.lazy()组件添加Suspense
+const wrapComponent = (WrappedComponent, className = 'forward') => () => (
+	<div className={ className }>
+		<Suspense fallback={ <Loading /> }>
+			<WrappedComponent />
+		</Suspense>
+	</div>
+)
 
 
-let oldPathName = null
 const TransRouter = withRouter(({ location, history }) => {
-	console.log(history)
 	const { pathname } = location
-
-
-	oldPathName = pathname
 	return (
 		<TransitionGroup
 			className={ 'router-wrapper' }
 			childFactory={ child => React.cloneElement(
 				child,
-				{ classNames: pathname === '/home' || pathname === '/home/user' ? `Tab-${ ACTION_MAP[history.action] }` : ACTION_MAP[history.action] }
-				//{ classNames: ACTION_MAP[history.action] }
-			) }
-		>
+				{
+					classNames: pathname === '/home' ||
+					pathname === '/home/user' ? `Tab-${ ACTION_MAP[history.action] }` :
+						ACTION_MAP[history.action]
+				}
+			) }>
 			<CSSTransition
-				timeout={ 10000 }
-				// timeout={ pathname === '/home' || pathname === '/home/user' ? 0 : 10000 }
-				// key={ pathname }
-				appear={ true }
-				mountOnEnter={true}
-				in={ pathname !== '/home' || pathname !== '/home/user' }
-				addEndListener={(node, done) => {
-					// debugger
-					console.log(node.children[0].className)
-				}}
-			>
+				timeout={ pathname === '/home' || pathname === '/home/user' ? 0 : 300 }
+				key={ pathname }
+				appear={ true }>
 				<div>
-					<Suspense fallback={ <Loading /> }>
-						<Switch location={ location }>
-							<Route path={ '/login' } component={ Login } />
-							<Route path={ '/homePage/benefit' } component={ Benefit } />
-							<Route path={ '/userPage/policy' } component={ Policy } />
-							<Route path={ '/' } component={ TabRouter } />
-							{/*<Redirect path={ '/' } to={ '/home' } />*/ }
-						</Switch>
-					</Suspense>
+					<Switch location={ location }>
+						<Route path={ '/login' } component={ wrapComponent(Login, ACTION_MAP[history.action]) } />
+						<Route path={ '/homePage/benefit' }
+						       component={ wrapComponent(Benefit, ACTION_MAP[history.action]) } />
+						<Route path={ '/userPage/policy' } component={ wrapComponent(Policy, ACTION_MAP[history.action]) } />
+
+						<Route path={ '/' } component={ wrapComponent(TabRouter, ACTION_MAP[history.action]) } />
+					</Switch>
 				</div>
 			</CSSTransition>
 		</TransitionGroup>
@@ -126,14 +108,6 @@ const TransRouter = withRouter(({ location, history }) => {
 *
 *
 * */
-const ROUTER = () => (
-	<Suspense fallback={ <Loading /> }>
-		<Switch>
-			<Route path={ '/home' } component={ TabRouter } />
-			<Route path={ '/' } component={ TransRouter } />
-		</Switch>
-	</Suspense>
-)
 
 const AppRouter1 = () => (
 	<Router history={ history }>
