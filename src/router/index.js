@@ -87,9 +87,9 @@ const TransRouter = withRouter(({ location, history }) => {
 				<div>
 					<Switch location={ location }>
 						<Route path={ '/home' } component={ wrapComponent(TabRouter) } />
-						<Route path={ '/' } component={ wrapComponent(tRouter) } />
+						<Route path={ '/' } exact component={ wrapComponent(tRouter) } />
 						<Redirect to={ '/home' } />
-					</Switch>*
+					</Switch>
 				</div>
 			</CSSTransition>
 		</TransitionGroup>
