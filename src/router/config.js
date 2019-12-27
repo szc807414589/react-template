@@ -19,12 +19,18 @@
 * component ()=>import('页面地址')
 * */
 import React from "react"
+import HomePageLayout from '../layouts/HomePage'
+import Home from '../pages/home/index'
+import User from '../pages/user/index'
+const Benefit = React.lazy(() => import('../pages/home/benefit'))
+const Login = React.lazy(() => import('../pages/login'))
+const Policy = React.lazy(() => import('../pages/user/policy'))
 
 export const routesConfig = [
 	//两个tabbar页面
 	{
 		path: '/home',
-		component: React.lazy(() => import('../layouts/HomePage')),
+		component: HomePageLayout,
 		exact: false,
 		routes: [
 
@@ -32,38 +38,37 @@ export const routesConfig = [
 				path: '/home',
 				name: 'home',
 				exact: true,
-				component: React.lazy(() => import('../pages/home')),
+				component: Home,
 			},
 			{
 				path: '/home/user',
 				name: 'user',
 				exact: true,
-				component: React.lazy(() => import('../pages/user')),
+				component: User,
 			},
 		]
 	},
+
 	{
 		path:'/',
-		// exact: true,
-		component: React.lazy(() => import('../layouts/TransAnimateLayout')),
+		exact:true,
 		routes:[
 			{
 				path: '/login',
 				name: 'loginPage',
 				exact: false,
-				component: React.lazy(() => import('../pages/login')),
+				component: Login,
 			},
 			{
 				path: '/homePage',
 				name: 'homePage',
 				exact: false,
-				//
 				routes: [
 					{
 						path: '/homePage/benefit',
 						name: 'benefit',
 						exact: true,
-						component: React.lazy(() => import('../pages/home/benefit')),
+						component: Benefit,
 					},
 				]
 			},
@@ -73,24 +78,19 @@ export const routesConfig = [
 				exact: false,
 				routes: [
 					{
-						path: '/userPage',
-						redirect: '/home',
-						exact: true,
-					},
-					{
 						path: '/userPage/policy',
 						name: 'userPage/policy',
 						exact: false,
 						isTab: false,
-						component: React.lazy(() => import('../pages/user/policy')),
+						component: Policy,
 					},
 				]
 			},
 		]
 	},
 
-	// {
-	// 	path: '/',
-	// 	redirect: '/home',
-	// },
+	{
+		path: '/',
+		redirect: '/home',
+	},
 ]
