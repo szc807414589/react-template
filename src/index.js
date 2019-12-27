@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App'
-import './assets/style/reset.less'
-import './assets/style/captain.less'
-import './assets/utils/rem'
+import App from './App';
+import './assets/style/reset.less';
+import './assets/style/captain.less';
+import './assets/utils/rem';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<App />, document.getElementById('root'));

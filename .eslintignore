@@ -1,0 +1,6 @@
+/.git
+/.vscode
+/build
+/.eslintrc.js
+node_modules
+/.idea

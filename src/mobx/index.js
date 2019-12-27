@@ -1,10 +1,10 @@
-import CountStore from './CountStore'
-import TodoListStore from './TodoListStore'
-import NovelStore from './AsyncStore'
+import CountStore from './CountStore';
+import TodoListStore from './TodoListStore';
+import NovelStore from './AsyncStore';
 
 const Store = {
-	CountStore,
-	TodoListStore,
-	NovelStore
-}
-export default Store
+    CountStore,
+    TodoListStore,
+    NovelStore,
+};
+export default Store;

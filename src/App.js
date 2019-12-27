@@ -1,14 +1,14 @@
-import React from 'react'
-import AppRouter from './router'
-import { Provider as MobxProvider } from 'mobx-react'
-import Store from './mobx/index'
+import React from 'react';
+import { Provider as MobxProvider } from 'mobx-react';
+import AppRouter from './router';
+import Store from './mobx/index';
 
-function App() {
-	return (
-		<MobxProvider { ...Store }>
-			<AppRouter />
-		</MobxProvider>
-	)
+function App () {
+    return (
+        <MobxProvider { ...Store }>
+            <AppRouter />
+        </MobxProvider>
+    );
 }
 
-export default App
+export default App;
