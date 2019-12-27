@@ -4,15 +4,30 @@ import history from '../../history';
 
 class Home extends React.Component {
 
-    render () {
-        return (
-            <div>
+	handleClick = path => {
+	    history.push(`/homePage/${ path }`);
+	};
+
+	render () {
+	    return (
+	        <div>
 				这里是home页面
-                <Button onClick={ () => { history.push('/login') } }>go login</Button>
-                <Button onClick={ () => { history.push('/homePage/benefit') } }>go benefit</Button>
-            </div>
-        );
-    }
+	            <Button
+	                onClick={ () => { this.handleClick('login') } }
+	            >
+					go login
+	            </Button>
+	            <Button
+	                className='test'
+	                type='danger'
+	                onClick={ () => { this.handleClick('benefit') } }
+	            >
+					go benefit
+	            </Button>
+	        </div>
+	    );
+	}
 
 }
+
 export default Home;

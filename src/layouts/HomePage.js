@@ -88,13 +88,14 @@ function TabBarComponent ({ children }) {
 }
 
 const HomePageLayout = props => {
-    const { children, ...rest } = props;
+    const { children } = props;
     return (
         <div
-            { ...rest }
             className='homePageLayout'
         >
-            <TabBarComponent children={ children } />
+            <TabBarComponent>
+                {children}
+            </TabBarComponent>
         </div>
     );
 };

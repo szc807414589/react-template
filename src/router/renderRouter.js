@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import {
     Switch,
     Route,
@@ -16,8 +16,8 @@ const wrapComponent = WrappedComponent => () => (
     </React.Suspense>
 );
 
-//递归展开 routesConfig
-const renderRouter = (routes, switchProps = {}) => (routes ? (
+//递归展开 routesConfig  component 和 routes 不会共存
+export const renderRouter = (routes, switchProps = {}) => (routes ? (
     <Switch { ...switchProps }>
         {
             routes.map((route, i) => {
@@ -25,7 +25,7 @@ const renderRouter = (routes, switchProps = {}) => (routes ? (
                 if (route.redirect) {
                     return (
                         <Redirect
-                            key={ route.key || i }
+                            key={ route.path || i }
                             exact={ route.exact }
                             from={ route.path }
                             strict={ route.strict }
@@ -34,37 +34,56 @@ const renderRouter = (routes, switchProps = {}) => (routes ? (
                     );
                 }
 
-                //如果有子路由,就渲染子路由,如果没有,就直接渲染
+
+                if (route.routes) {
+                    renderRouter(route.routes);
+                }
                 return (
-                    <Suspense
-                        key={ `${ route.path }_${ i }` }
-						          fallback={ <Loading /> }
-                    >
-                        <Route
-                            exact={ route.exact }
-                            path={ route.path }
-                            render={
-                                props => {
-                                    const childRoutes = renderRouter(
-                                        route.routes,
-                                        { location: props.location },
-                                    );
-                                    if (route.component) {
-                                        return (
-                                            <route.component>
-                                                { childRoutes }
-                                            </route.component>
-                                        );
-                                    }
-                                    return childRoutes;
+                    <Route
+                        key={ route.path || i }
+
+                        //component={ wrapComponent(route.component) }
+                        exact={ route.exact }
+                        path={ route.path }
+                        render={
+                            () => {
+                                if (route.component) {
+                                    return wrapComponent(route.component);
                                 }
                             }
-                        />
-                    </Suspense>
+                        }
+                        strict={ route.strict }
+                    />
                 );
+
+                // return (
+                //     <Suspense
+                //         key={ `${ route.path }_${ i }` }
+                // 		          fallback={ <Loading /> }
+                //     >
+                //         <Route
+                //             exact={ route.exact }
+                //             path={ route.path }
+                //             render={
+                //                 props => {
+                //                     const childRoutes = renderRouter(
+                //                         route.routes,
+                //                         { location: props.location },
+                //                     );
+                //                     if (route.component) {
+                //                         return (
+                //                             <route.component>
+                //                                 { childRoutes }
+                //                             </route.component>
+                //                         );
+                //                     }
+                //                     return childRoutes;
+                //                 }
+                //             }
+                //         />
+                //     </Suspense>
+                // );
             })
         }
     </Switch>
 ) : null);
-
-export default renderRouter;

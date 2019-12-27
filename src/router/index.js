@@ -8,6 +8,8 @@ import history from '../history';
 import Home from '../pages/home/index';
 import User from '../pages/user/index';
 import './style.less';
+import { renderRouter } from './renderRouter';
+import { routesConfig } from './config';
 
 const Benefit = React.lazy(() => import('../pages/home/benefit/index'));
 const Login = React.lazy(() => import('../pages/login'));
@@ -102,9 +104,9 @@ const TransRouter = withRouter(({ location, history }) => {
             childFactory={
                 child => React.cloneElement(child, {
                     classNames:
-					pathname === '/home' || pathname === '/home/user' ?
-					    `Tab-${ ACTION_MAP[history.action] }` :
-					    ACTION_MAP[history.action],
+						pathname === '/home' || pathname === '/home/user' ?
+						    `Tab-${ ACTION_MAP[history.action] }` :
+						    ACTION_MAP[history.action],
                 })
             }
             className='router-wrapper'
@@ -115,18 +117,18 @@ const TransRouter = withRouter(({ location, history }) => {
                 timeout={ pathname === '/home' || pathname === '/home/user' ? 0 : 300 }
             >
                 <div>
-                    <Switch location={ location }>
-                        <Route
-                            component={ wrapComponent(TabRouter) }
-                            path='/home'
-                        />
-                        <Route
-                            exact
-                            component={ wrapComponent(tRouter) }
-                            path='/'
-                        />
-                        <Redirect to='/home' />
-                    </Switch>
+                   <Switch location={ location }>
+                   <Route
+                   component={ wrapComponent(TabRouter) }
+                   path='/home'
+                   />
+                   <Route
+                   component={ wrapComponent(tRouter) }
+                   path='/'
+                   />
+                   <Redirect to='/home' />
+                   </Switch>
+                    {/*{ renderRouter(routesConfig, { location: location }) }*/}
                 </div>
             </CSSTransition>
         </TransitionGroup>

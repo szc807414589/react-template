@@ -27,7 +27,53 @@ const Benefit = React.lazy(() => import('../pages/home/benefit'));
 const Login = React.lazy(() => import('../pages/login'));
 const Policy = React.lazy(() => import('../pages/user/policy'));
 
-export const routesConfig = [
+
+export const routesConfig =
+
+// [
+// 	{
+// 		path: '/',
+// 		exact: false,
+// 		routes:
+				[
+				    {
+				        path     : '/login',
+				        name     : 'loginPage',
+				        exact    : false,
+				        component: Login,
+				    },
+				    {
+				        path  : '/homePage',
+				        name  : 'homePage',
+				        exact : false,
+				        routes: [
+				            {
+				                path     : '/homePage/benefit',
+				                name     : 'benefit',
+				                exact    : false,
+				                component: Benefit,
+				            },
+				        ],
+				    },
+				    {
+				        path  : '/userPage',
+				        name  : 'userPage',
+				        exact : false,
+				        routes: [
+				            {
+				                path     : '/userPage/policy',
+				                name     : 'policy',
+				                exact    : false,
+				                component: Policy,
+				            },
+				        ],
+				    },
+				];
+
+// 	}
+// ];
+
+export const tabConfig = [
     //两个tabbar页面
     {
         path     : '/home',
@@ -43,52 +89,9 @@ export const routesConfig = [
             {
                 path     : '/home/user',
                 name     : 'user',
-                exact    : true,
+                exact    : false,
                 component: User,
             },
         ],
-    },
-    {
-        path  : '/',
-        exact : true,
-        routes: [
-            {
-                path     : '/login',
-                name     : 'loginPage',
-                exact    : false,
-                component: Login,
-            },
-            {
-                path  : '/homePage',
-                name  : 'homePage',
-                exact : false,
-                routes: [
-                    {
-                        path     : '/homePage/benefit',
-                        name     : 'benefit',
-                        exact    : true,
-                        component: Benefit,
-                    },
-                ],
-            },
-            {
-                path  : '/userPage',
-                name  : 'userPage',
-                exact : false,
-                routes: [
-                    {
-                        path     : '/userPage/policy',
-                        name     : 'userPage/policy',
-                        exact    : false,
-                        isTab    : false,
-                        component: Policy,
-                    },
-                ],
-            },
-        ],
-    },
-    {
-        path    : '/',
-        redirect: '/home',
     },
 ];
