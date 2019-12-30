@@ -1,7 +1,5 @@
 import React  from 'react';
-import {
-    Router, withRouter,
-} from 'react-router-dom';
+import { Router, withRouter } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import history from '../history';
 import './style.less';
