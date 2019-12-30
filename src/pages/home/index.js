@@ -5,7 +5,7 @@ import history from '../../history';
 class Home extends React.Component {
 
 	handleClick = path => {
-	    history.push(`/homePage/${ path }`);
+	    history.push(`${ path }`);
 	};
 
 	render () {
@@ -13,14 +13,14 @@ class Home extends React.Component {
 	        <div>
 				这里是home页面
 	            <Button
-	                onClick={ () => { this.handleClick('login') } }
+	                onClick={ () => { this.handleClick('/login') } }
 	            >
 					go login
 	            </Button>
 	            <Button
 	                className='test'
 	                type='danger'
-	                onClick={ () => { this.handleClick('benefit') } }
+	                onClick={ () => { this.handleClick('/homePage/benefit') } }
 	            >
 					go benefit
 	            </Button>
